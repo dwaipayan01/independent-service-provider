@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from "../../firebase.init";
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -8,21 +10,37 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const [agree, setAgree] = useState(false);
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
 
+    ] = useCreateUserWithEmailAndPassword(auth);
+    const navigate = useNavigate();
     const handleName = event => {
-        setName(event.targer.value);
+        setName(event.target.value);
     }
     const handleEmail = event => {
-        setEmail(event.targer.value);
+        setEmail(event.target.value);
     }
     const handlePassword = event => {
-        setPassword(event.targer.value);
+        setPassword(event.target.value);
     }
     const handleConfirmPassword = event => {
-        setConfirmPassword(event.targer.value);
+        setConfirmPassword(event.target.value);
+    }
+    if (user) {
+        navigate("/home");
     }
     const handleSubmit = event => {
         event.preventDefault();
+        if (password !== confirmPassword) {
+            setError("Password does not match");
+            return;
+        }
+
+        createUserWithEmailAndPassword(email, password)
     }
 
     return (
@@ -31,27 +49,28 @@ const Register = () => {
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control onBlur={handleName} type="text" placeholder="Enter Your name" />
+                    <Form.Control onBlur={handleName} type="text" placeholder="Enter Your name" required />
 
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control onBlur={handleEmail} type="email" placeholder="Enter your email" />
+                    <Form.Control onBlur={handleEmail} type="email" placeholder="Enter your email" required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control onBlur={handlePassword} type="password" placeholder="Enter your Password" />
+                    <Form.Control onBlur={handlePassword} type="password" placeholder="Enter your Password" required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control onBlur={handleConfirmPassword} type="password" placeholder="Enter your password again" />
+                    <Form.Control onBlur={handleConfirmPassword} type="password" placeholder="Enter your password again" required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Do you agree with terms and condition" />
+                    <Form.Check onClick={() => setAgree(!agree)} type="checkbox" className={agree ? "text-primary" : " text-danger "} label="Do you agree with terms and condition" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
-                    Submit
+                <p className="text-danger">{error}</p>
+                <Button disabled={!agree} className="mx-auto d-block w-100" variant="primary" type="submit">
+                    Sign up
                 </Button>
                 <p className="mt-3">Already have an account ? <Link className="text-decoration-none" to="/login">Login</Link></p>
             </Form>
