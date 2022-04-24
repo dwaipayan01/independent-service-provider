@@ -21,7 +21,7 @@ const Header = () => {
                         </Nav>
                         <Nav>
                             <Nav.Link className="mt-2" as={Link} to="/login">Login</Nav.Link>
-                            <Nav.Link as={Link} to="/memes">
+                            <Nav.Link as={Link} to="/signup">
                                 <button className="btn btn-danger">Sign up</button>
                             </Nav.Link>
                         </Nav>
