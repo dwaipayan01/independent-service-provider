@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { Link, useNavigate, } from 'react-router-dom';
+import { Link, useLocation, useNavigate, } from 'react-router-dom';
 import auth from '../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { ToastContainer, toast } from 'react-toastify';
@@ -30,8 +30,10 @@ const Login = () => {
     const handlePassword = event => {
         setPassword(event.target.value);
     }
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
     if (user) {
-        navigate("/home");
+        navigate(from, { replace: true });
     }
 
     const handleSubmit = event => {

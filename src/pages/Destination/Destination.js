@@ -6,7 +6,7 @@ const Destination = (props) => {
     const { name, picture, price, place } = props.destination;
     return (
         <div>
-            <div className="image-container">
+            <div className="image-container ">
                 <img src={picture} alt="" />
 
 

@@ -9,6 +9,8 @@ import Blogs from './pages/Blogs/Blogs';
 import About from './pages/About/About';
 import NotFound from './pages/NotFound/NotFound';
 import Services from './pages/Services/Services';
+import CheckOut from './pages/CheckOut/CheckOut';
+import RequiredAuth from './pages/RequiredAuth/RequiredAuth';
 
 
 
@@ -25,6 +27,9 @@ function App() {
         <Route path="/blogs" element={<Blogs></Blogs>}></Route>
         <Route path="/about" element={<About></About>}></Route>
         <Route path="/services" element={<Services></Services>}></Route>
+        <Route path="/checkout/:checkoutId" element={<RequiredAuth>
+          <CheckOut></CheckOut>
+        </RequiredAuth>}></Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>
 
       </Routes>
