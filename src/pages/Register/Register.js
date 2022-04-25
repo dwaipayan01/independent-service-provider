@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from "../../firebase.init";
 import SocialLogin from '../SocialLogin/SocialLogin';
+import { sendEmailVerification } from 'firebase/auth';
 
 
 
@@ -19,7 +20,7 @@ const Register = () => {
         user,
         loading,
 
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
     const navigate = useNavigate();
     const handleName = event => {
         setName(event.target.value);
