@@ -7,7 +7,9 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Blogs from './pages/Blogs/Blogs';
 import About from './pages/About/About';
-import Banner from './pages/Banner/Banner';
+import NotFound from './pages/NotFound/NotFound';
+import Services from './pages/Services/Services';
+
 
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
         <Route path="/signup" element={<Register></Register>}></Route>
         <Route path="/blogs" element={<Blogs></Blogs>}></Route>
         <Route path="/about" element={<About></About>}></Route>
+        <Route path="/services" element={<Services></Services>}></Route>
+        <Route path="*" element={<NotFound></NotFound>}></Route>
 
       </Routes>
     </div>
