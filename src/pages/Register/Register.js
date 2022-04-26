@@ -44,7 +44,7 @@ const Register = () => {
             return;
         }
 
-        createUserWithEmailAndPassword(email, password);
+        createUserWithEmailAndPassword(email, password)
     }
 
     return (
